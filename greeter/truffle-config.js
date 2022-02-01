@@ -18,7 +18,7 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider')
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -46,6 +46,14 @@ module.exports = {
       host: '127.0.0.1', // Localhost (default: none)
       port: 8545, // Standard Ethereum port (default: none)
       network_id: '*', // Any network (default: none)
+    },
+    goerli: {
+      networkCheckTimeout: 10000,
+      provider: () => {
+        const mnemonic = process.env['MNEMONIC']
+        return new HDWalletProvider(mnemonic, 'http://127.0.0.1:8545')
+      },
+      network_id: '*',
     },
     // Another network with more advanced options...
     // advanced: {
